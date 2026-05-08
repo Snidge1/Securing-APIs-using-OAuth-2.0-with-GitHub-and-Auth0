@@ -1,0 +1,23 @@
+i. What happens when a user accesses /profile without logging in?
+The server checks if 'user' not in session and returns an HTTP 401 Unauthorized response with the plain text "Unauthorized". 
+The user is denied access to any profile data.
+
+ii. What data is returned after successful login?
+GitHub's API returns a JSON object containing the user's public profile data, including: login (username), id, avatar_url, name, 
+email, bio, public_repos, followers, and more. This gets stored in the session and returned via jsonify().
+
+iii. Why is OAuth considered more secure than traditional login?
+With traditional login, your app stores and handles user passwords directly — a breach exposes credentials. 
+OAuth eliminates this entirely: the user authenticates with a trusted third party (GitHub), 
+and your app only receives a token with limited scope. Your app never sees the password, tokens can expire, 
+and users can revoke access at any time without changing their password. This follows the principle of least privilege.
+
+iv. What challenges did you encounter?
+Common challenges in this lab include: setting the correct callback URL in GitHub settings (must match exactly or OAuth fails), 
+managing Flask session secrets securely, understanding the authorization code flow (redirect → callback → token exchange), and handling cases 
+where the user denies permission on GitHub's authorization page.
+
+v. What did you learn from this activity?
+This activity demonstrated how OAuth 2.0 decouples authentication from your application, how the authorization code flow works in practice 
+(redirect → authorization → callback → token → API call), how to protect routes using session-based checks, and how providers like GitHub 
+and Auth0 can be swapped with minimal code changes thanks to Authlib's abstraction layer.
